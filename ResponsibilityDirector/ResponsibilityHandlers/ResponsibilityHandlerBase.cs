@@ -10,5 +10,5 @@ public abstract class ResponsibilityHandlerBase<TRequest, TResponse> : IResponsi
         return handler;
     }
 
-    public abstract TResponse? Handle(TRequest request);
+    public abstract TResponse Handle(TRequest request);
 }

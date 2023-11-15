@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
 using ResponsibilityDirector.ResponsibilityHandlers;
-using System;
 
 namespace ResponsibilityDirector.Directors;
 
@@ -30,5 +29,4 @@ public abstract class DirectorBase<TRequest, TResponse> : IDirector<TRequest, TR
     }
 
     public abstract Task<TResponse> Handle(TRequest request);
-
 }
