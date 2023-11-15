@@ -28,5 +28,5 @@ public abstract class DirectorBase<TRequest, TResponse> : IDirector<TRequest, TR
         }
     }
 
-    public abstract Task<TResponse> Handle(TRequest request);
+    public abstract Task<TResponse> Initiate(TRequest request);
 }
