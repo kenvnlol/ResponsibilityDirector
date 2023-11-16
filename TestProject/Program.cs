@@ -1,14 +1,14 @@
-using ResponsibilityDirector.Options;
 using ResponsibilityDirector.ResponsibilityHandlers;
+using ResponsibilityDirector.Options;
 using TestProject;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.ConfigureDirector<SyncDirector, AuthorizationLevel, AuthorizationMessage>()
-    .AddHandler<ResponsibilityHandler<AuthorizationLevel, AuthorizationMessage>, SyncHandlerOne>()
-    .AddHandler<ResponsibilityHandler<AuthorizationLevel, AuthorizationMessage>, SyncHandlerTwo>()
-    .AddHandler<ResponsibilityHandler<AuthorizationLevel, AuthorizationMessage>, SyncHandlerThree>();
+    .AddHandler<SyncHandlerOne>()
+    .AddHandler<SyncHandlerTwo>()
+    .AddHandler<SyncHandlerThree>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

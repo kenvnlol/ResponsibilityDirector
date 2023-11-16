@@ -15,11 +15,10 @@ public class ResponsibilityDirectorOptionsBuilder<TDirector, TRequest, TResponse
         _services = services;
     }
 
-    public ResponsibilityDirectorOptionsBuilder<TDirector, TRequest, TResponse> AddHandler<TBaseHandler, TDerivedHandler>() 
-        where TBaseHandler : ResponsibilityHandler<TRequest, TResponse>
-        where TDerivedHandler : TBaseHandler
+    public ResponsibilityDirectorOptionsBuilder<TDirector, TRequest, TResponse> AddHandler<THandler>() 
+        where THandler : ResponsibilityHandler<TRequest, TResponse>
     {
-        _services.AddScoped<TBaseHandler, TDerivedHandler>();
+        _services.AddScoped<ResponsibilityHandler<TRequest, TResponse>, THandler>();
         return this;
     }
 }

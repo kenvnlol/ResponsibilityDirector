@@ -18,7 +18,7 @@ public class SyncDirector : Director<AuthorizationLevel, AuthorizationMessage>
 }
 
 
-public record AuthorizationLevel(string Level);
+public record AuthorizationLevel(int Level);
 
 public record AuthorizationMessage(string Message);
 
@@ -27,13 +27,13 @@ public class SyncHandlerOne : ResponsibilityHandler<AuthorizationLevel, Authoriz
 {
     public async override Task<AuthorizationMessage> Handle(AuthorizationLevel request)
     {
-        if (request.Level == "Member")
+        if (request.Level < 1)
         {
-            var response = _nextHandler?.Handle(request) ?? throw new InvalidOperationException("There should be a next handler.");
-            return await response;
+            return new AuthorizationMessage("You failed the authorization.");
         }
 
-        return new AuthorizationMessage("You failed the authorization.");
+        var response = _nextHandler?.Handle(request) ?? throw new InvalidOperationException("There should be a next handler.");
+        return await response;
     }
 }
 
@@ -41,13 +41,13 @@ public class SyncHandlerTwo : ResponsibilityHandler<AuthorizationLevel, Authoriz
 {
     public async override Task<AuthorizationMessage> Handle(AuthorizationLevel request)
     {
-        if (request.Level == "Admin")
+        if (request.Level < 2)
         {
-            var response = _nextHandler?.Handle(request) ?? throw new InvalidOperationException("There should be a next handler.");
-            return await response;
+            return new AuthorizationMessage("You failed the authorization.");
         }
 
-        return new AuthorizationMessage("You failed the authorization.");
+        var response = _nextHandler?.Handle(request) ?? throw new InvalidOperationException("There should be a next handler.");
+        return await response;
     }
 }
 
@@ -55,11 +55,11 @@ public class SyncHandlerThree : ResponsibilityHandler<AuthorizationLevel, Author
 {
     public override Task<AuthorizationMessage> Handle(AuthorizationLevel request)
     {
-        if (request.Level == "SuperAdmin")
+        if (request.Level < 3)
         {
-            return Task.FromResult(new AuthorizationMessage("Success!"));
+            return Task.FromResult(new AuthorizationMessage("You failed the authorization."));
         }
 
-        return Task.FromResult(new AuthorizationMessage("You failed the authorization."));
+        return Task.FromResult(new AuthorizationMessage("Success!"));
     }
 }

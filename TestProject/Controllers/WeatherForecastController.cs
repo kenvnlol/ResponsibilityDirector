@@ -17,9 +17,9 @@ namespace TestProject.Controllers
         [HttpGet(Name = "GetWeatherForecast")]
         public string Get()
         {
-            var result = _director.Initiate(new AuthorizationLevel("Admin"));
+            var result = _director.Initiate(new AuthorizationLevel(4));
 
-            return result.Result.Message;
+            return result.Result.Message.ToString();
         }
     }
 }
