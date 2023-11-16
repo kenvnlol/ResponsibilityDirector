@@ -32,8 +32,7 @@ public class SyncHandlerOne : ResponsibilityHandler<AuthorizationLevel, Authoriz
             return new AuthorizationMessage("You failed the authorization.");
         }
 
-        var response = _nextHandler?.Handle(request) ?? throw new InvalidOperationException("There should be a next handler.");
-        return await response;
+        return await MoveNext(request);
     }
 }
 
@@ -46,8 +45,7 @@ public class SyncHandlerTwo : ResponsibilityHandler<AuthorizationLevel, Authoriz
             return new AuthorizationMessage("You failed the authorization.");
         }
 
-        var response = _nextHandler?.Handle(request) ?? throw new InvalidOperationException("There should be a next handler.");
-        return await response;
+        return await MoveNext(request);
     }
 }
 
@@ -60,6 +58,6 @@ public class SyncHandlerThree : ResponsibilityHandler<AuthorizationLevel, Author
             return Task.FromResult(new AuthorizationMessage("You failed the authorization."));
         }
 
-        return Task.FromResult(new AuthorizationMessage("Success!"));
+        return Task.FromResult(new AuthorizationMessage("Welcome Mr. Admin!"));
     }
 }

@@ -10,8 +10,6 @@ public abstract class Director<TRequest, TResponse>
 
     protected Director(IEnumerable<ResponsibilityHandler<TRequest, TResponse>> handlers)
     {
-        // Guard.IsNotNull(handlers, nameof(handlers));
-
         if (!handlers.Any()) throw new ArgumentException("Handler list cannot be empty", nameof(handlers));
 
         _initiator = handlers.First();
