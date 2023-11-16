@@ -1,26 +1,16 @@
-﻿//using Microsoft.Extensions.DependencyInjection;
-//using ResponsibilityDirector.Options;
+﻿using Microsoft.Extensions.DependencyInjection;
+using ResponsibilityDirector.Options;
 
-//namespace ResponsibilityDirector.Registrar;
 
-//public static class IServiceCollectionExtensions
-//{
-//    public static IServiceCollection AddResponsibilityDirector(this IServiceCollection service,
-//        Action<ResponsibilityDirectorOptions> configure)
-//    {
-//        var config = new ResponsibilityDirectorOptions();
-//        configure(config);
+namespace ResponsibilityDirector.Registrar;
 
-//        foreach (var director in config.DirectorSettings)
-//        {
-//            foreach (var handler in director.HandlerTypes)
-//            {
-//                service.AddKeyedScoped(director.InterfaceType, director.Key, handler);
-//            }
+public static class IServiceCollectionExtensions
+{
+    public static IServiceCollection AddResponsibilityDirector(this IServiceCollection service, Action<ResponsibilityDirectorOptions> options)
+    {
+        var configure = new ResponsibilityDirectorOptions(service);
+        options(configure);
 
-//            service.AddScoped(director.DirectorType);
-//        }
-
-//        return service;
-//    }
-//}
+        return service;
+    }
+}
